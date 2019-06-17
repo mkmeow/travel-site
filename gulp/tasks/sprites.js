@@ -20,22 +20,22 @@ gulp.task('beginClean', function() {
   return del(['./app/temp/sprite', './app/assets/images/sprites']);
 });
 
-gulp.task('createSprite', gulp.series('beginClean', function() {
+gulp.task('createSprite', function() {
   return gulp.src('./app/assets/images/icons/**/*.svg')
     .pipe(svgSprite(config))
     .pipe(gulp.dest('./app/temp/sprite/'));
-}));
+});
 
-gulp.task('copySpriteGraphic', gulp.series('createSprite', function() {
+gulp.task('copySpriteGraphic', function() {
   return gulp.src('./app/temp/sprite/css/**/*.svg')
     .pipe(gulp.dest('./app/assets/images/sprites'));
-}));
+});
 
-gulp.task('copySpriteCSS', gulp.series('createSprite', function() {
+gulp.task('copySpriteCSS', function() {
   return gulp.src('./app/temp/sprite/css/*.css')
     .pipe(rename('_sprite.css'))
     .pipe(gulp.dest('./app/assets/styles/modules'));
-}));
+});
 
 gulp.task('endClean', function() {
   return del('./app/temp/sprite');
